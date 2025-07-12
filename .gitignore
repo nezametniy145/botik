@@ -1,0 +1,36 @@
+# Python-окружение
+venv/
+.env
+*.pyc
+__pycache__/
+
+# Конфигурационные и чувствительные файлы
+config/settings_local.py
+*.env
+*.secret
+
+# Базы данных и временные файлы
+*.db
+*.sqlite3
+*.log
+
+# Графики, отчёты, временные изображения
+charts_output/
+*.png
+*.jpg
+*.svg
+*.pdf
+
+# IDE и редакторы
+.vscode/
+.idea/
+*.swp
+
+# Кеш и системные файлы
+.DS_Store
+Thumbs.db
+
+# Jupyter / ML (на будущее)
+.ipynb_checkpoints/
+__results__/
+*.ipynb
