@@ -1,9 +1,9 @@
 from flask import Flask
 import threading
 from telebot import TeleBot
-from src.config.settings import bot_token
-from src.bot.handlers import register_handlers
-from src.db.database import init_db
+from config.settings import bot_token
+from bot.handlers import register_handlers
+from db.database import init_db
 
 # Инициализация бота
 bot = TeleBot(bot_token)
