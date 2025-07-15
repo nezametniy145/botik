@@ -35,7 +35,7 @@ def register_handlers(bot):
             
     @bot.message_handler(commands=['wake'])
     def wake_bot(message):
-        url = "https://your-bot-name.onrender.com/ping"
+        url = "https://botik-9uuk.onrender.com/ping"
         try:
             requests.get(url)
             bot.send_message(message.chat.id, "🔔 Бот разбужен.")
