@@ -1,15 +1,29 @@
+from flask import Flask
+import threading
 from telebot import TeleBot
-from src.db.database import db_init
 from src.config.settings import bot_token
 from src.bot.handlers import register_handlers
+from src.db.database import init_db
 
+# Инициализация бота
 bot = TeleBot(bot_token)
+register_handlers(bot)
+init_db()
 
-db_init()
+# Flask-приложение
+app = Flask(__name__)
 
-register_handlers(bot) #регистрация всех хэндлеров
+@app.route('/')
+@app.route('/ping')
+def ping():
+    return '✅ Bot is awake!'
+
+# Отдельный поток для запуска Telegram-бота
+def run_telegram():
+    bot.polling(none_stop=True)
 
 if __name__ == '__main__':
-    print("Бот запущен...")
-    bot.polling(none_stop=True)
+    threading.Thread(target=run_telegram).start()
+    app.run(host='0.0.0.0', port=10000)
+
 

@@ -1,4 +1,4 @@
-from email import message
+import requests
 from src.db.database import add_expenses, get_expenses
 
 def register_handlers(bot):
@@ -12,7 +12,7 @@ def register_handlers(bot):
         
     @bot.message_handler(commands=['add'])
     def add_command(message):
-        bot.send_message(message.chat.id, "Введи сумму и дату, когда нужно заплатить, к примеру:\n 200 12.05.26")
+        bot.send_message(message.chat.id, "Введи сумму и дату, когда нужно заплатить, к примеру:\n200 12.05.26")
         bot.register_next_step_handler(message, save_expense)
         
     def save_expense(message):
@@ -32,3 +32,12 @@ def register_handlers(bot):
         else:
             text = "\n".join([f"{amount} ₽ — ({date})" for amount, date in rows])
             bot.send_message(message.chat.id, "💰 Подписки:\n" + text)
+            
+    @bot.message_handler(commands=['wake'])
+    def wake_bot(message):
+        url = "https://your-bot-name.onrender.com/ping"
+        try:
+            requests.get(url)
+            bot.send_message(message.chat.id, "🔔 Бот разбужен.")
+        except Exception:
+            bot.send_message(message.chat.id, "⚠️ Не удалось разбудить сервер.")
